@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html stray="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌿 Dreamland Trip 2026</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#e8fff0,#eef7ff);color:#173b2b;padding-bottom:40px}
+header{background:linear-gradient(135deg,#159957,#38ef7d);color:white;padding:35px 20px;text-align:center;border-radius:0 0 30px 30px}
+header h1{font-size:38px;margin:0 0 10px}.badge{display:inline-block;background:#ffffff33;padding:10px 16px;margin:5px;border-radius:20px;font-weight:bold}
+.container{max-width:1100px;margin:25px auto;padding:0 15px}.card{background:white;border-radius:20px;padding:25px;margin-bottom:22px;box-shadow:0 8px 25px #00000014}
+.card h2{margin-top:0;color:#117a45}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+input[type=text],select{width:100%;padding:13px;border:2px solid #d8eee0;border-radius:10px;margin-top:8px;font-size:16px}
+.option{border:2px solid #e1eee6;border-radius:14px;padding:13px;cursor:pointer;background:#fbfffc}.option input{margin-right:8px}
+.bus{background:#f4f8fa;padding:22px;border-radius:18px;border:2px solid #dce8ed}.bus-front{text-align:center;font-weight:bold;background:#37474f;color:white;padding:10px;border-radius:10px;margin-bottom:20px}
+.bus-row{display:grid;grid-template-columns:1fr 1fr 25px 1fr 1fr 1fr;gap:7px;margin-bottom:8px}.seat{padding:12px 5px;background:#d9f8e5;border:2px solid #5ac985;border-radius:8px;text-align:center;cursor:pointer;font-weight:bold}.seat.selected{background:#159957;color:white}.aisle{background:transparent}
+.back-row{margin-top:22px}.back-label{text-align:center;font-weight:bold;margin-bottom:8px}.back-seats{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.poll-option{display:flex;gap:10px;align-items:center;padding:12px;margin-bottom:8px;border:1px solid #dcebe2;border-radius:10px}.vote-btn,.submit-btn{border:0;background:linear-gradient(135deg,#159957,#28b463);color:white;padding:14px 24px;border-radius:12px;cursor:pointer;font-size:16px;font-weight:bold;margin-top:12px}
+.chart{margin-top:25px}.bar-row{margin-bottom:14px}.bar-label{margin-bottom:5px;font-weight:bold}.bar-bg{background:#e7eeee;border-radius:10px;overflow:hidden}.bar{background:linear-gradient(90deg,#159957,#38ef7d);color:white;padding:7px;transition:width .5s}
+#result{margin-top:20px;background:#effff5;border:2px solid #bce8cc;border-radius:14px;padding:20px;display:none}
+.chatbot{position:fixed;right:20px;bottom:20px;width:330px;background:white;border-radius:20px;box-shadow:0 10px 35px #0003;overflow:hidden;z-index:1000}.chat-header{background:linear-gradient(135deg,#159957,#38ef7d);color:white;padding:15px;font-weight:bold}.chat-messages{height:230px;overflow-y:auto;padding:12px;background:#f8fffa}.message{padding:9px 11px;border-radius:12px;margin-bottom:8px;max-width:90%;font-size:14px}.bot{background:#e3f8ea}.user{background:#dcecff;margin-left:auto}.chat-input{display:flex;border-top:1px solid #ddd}.chat-input input{flex:1;border:0;padding:12px;outline:none}.chat-input button{border:0;background:#159957;color:white;padding:0 15px;cursor:pointer}
+@media(max-width:600px){header h1{font-size:28px}.bus-row{grid-template-columns:1fr 1fr 12px 1fr 1fr 1fr}.back-seats{grid-template-columns:repeat(3,1fr)}.chatbot{position:relative;width:calc(100% - 30px);right:auto;bottom:auto;margin:15px}}
+</style>
+</head>
+<body>
+<header>
+<h1>🌿 Dreamland Trip 2026</h1>
+<p>Our School Fun Day at Dreamland Farm & Resort, Gurugram</p>
+<span class="badge">🏫 Class 8 F</span><span class="badge">👥 25 Students</span><span class="badge">📍 Gurugram</span><span class="badge">🚌 School Trip</span>
+</header>
+<div class="container">
+
+<section class="card"><h2>🏫 Choose Your Class</h2><label>Which class are you from?</label>
+<select id="className"><option>Class 8 F</option><option>Another Class</option></select></section>
+
+<section class="card"><h2>👋 Your Details</h2><label>Your Name</label><input type="text" id="studentName" placeholder="Enter your name"></section>
+
+<section class="card"><h2>🚌 Choose Your Bus Seat</h2><p>Choose one seat. The final 6-seat row is at the very back.</p>
+<div class="bus"><div class="bus-front">🚍 FRONT / DRIVER</div><div id="regularSeats"></div>
+<div class="back-row"><div class="back-label">🔙 BACK ROW — 6 SEATS</div><div class="back-seats" id="backSeats"></div></div></div>
+<p id="selectedSeatText">No seat selected.</p></section>
+
+<section class="card"><h2>🍿 Choose Your Snacks</h2><div class="grid">
+<label class="option"><input type="checkbox" class="snack" value="Chips">🍟 Chips</label><label class="option"><input type="checkbox" class="snack" value="Kurkure">🌶️ Kurkure</label>
+<label class="option"><input type="checkbox" class="snack" value="Cold Drink">🥤 Cold Drink</label><label class="option"><input type="checkbox" class="snack" value="Water">💧 Water</label>
+<label class="option"><input type="checkbox" class="snack" value="Chocolate">🍫 Chocolate</label><label class="option"><input type="checkbox" class="snack" value="Biscuits">🍪 Biscuits</label>
+<label class="option"><input type="checkbox" class="snack" value="Popcorn">🍿 Popcorn</label><label class="option"><input type="checkbox" class="snack" value="Candy">🍬 Candy</label>
+<label class="option"><input type="checkbox" class="snack" value="Samosa">🥟 Samosa</label><label class="option"><input type="checkbox" class="snack" value="Sandwich">🥪 Sandwich</label>
+<label class="option"><input type="checkbox" class="snack" value="Cupcake">🧁 Cupcake</label><label class="option"><input type="checkbox" class="snack" value="Cookies">🍪 Cookies</label>
+<label class="option"><input type="checkbox" class="snack" value="Juice">🧃 Juice</label><label class="option"><input type="checkbox" class="snack" value="Fruit">🍎 Fruit</label>
+<label class="option"><input type="checkbox" class="snack" value="Muffin">🧁 Muffin</label><label class="option"><input type="checkbox" class="snack" value="Namkeen">🥨 Namkeen</label>
+</div></section>
+
+<section class="card"><h2>🎯 Dreamland Activities</h2><div class="grid">
+<label class="option"><input type="checkbox" class="activityCheck" value="Rope Course">🧗 Rope Course</label><label class="option"><input type="checkbox" class="activityCheck" value="Zipline">🪂 Zipline</label>
+<label class="option"><input type="checkbox" class="activityCheck" value="Sky Cycling">🚲 Sky Cycling</label><label class="option"><input type="checkbox" class="activityCheck" value="Climbing">🧗 Climbing</label>
+<label class="option"><input type="checkbox" class="activityCheck" value="Swimming Pool">🏊 Swimming Pool</label><label class="option"><input type="checkbox" class="activityCheck" value="Rain Dance">💦 Rain Dance</label>
+<label class="option"><input type="checkbox" class="activityCheck" value="Archery">🏹 Archery</label><label class="option"><input type="checkbox" class="activityCheck" value="Dart">🎯 Dart</label>
+<label class="option"><input type="checkbox" class="activityCheck" value="Ring Toss">⭕ Ring Toss</label><label class="option"><input type="checkbox" class="activityCheck" value="Cricket">🏏 Cricket</label>
+<label class="option"><input type="checkbox" class="activityCheck" value="Badminton">🏸 Badminton</label><label class="option"><input type="checkbox" class="activityCheck" value="Volleyball">🏐 Volleyball</label>
+<label class="option"><input type="checkbox" class="activityCheck" value="Air Hockey">🏒 Air Hockey</label><label class="option"><input type="checkbox" class="activityCheck" value="Pool">🎱 Pool</label>
+<label class="option"><input type="checkbox" class="activityCheck" value="Table Tennis">🏓 Table Tennis</label><label class="option"><input type="checkbox" class="activityCheck" value="Rides">🎢 Rides</label>
+<label class="option"><input type="checkbox" class="activityCheck" value="Magic Show">🎩 Magic Show</label><label class="option"><input type="checkbox" class="activityCheck" value="Pottery">🏺 Pottery</label>
+<label class="option"><input type="checkbox" class="activityCheck" value="Puppet Show">🎭 Puppet Show</label>
+</div></section>
+
+<section class="card"><h2>🗳️ What Should We Do Together?</h2><p>Vote for what you want the whole group to do!</p>
+<div id="pollOptions"></div><label>💡 Something else:</label><input type="text" id="customIdea" placeholder="Write your own idea...">
+<button class="vote-btn" onclick="vote()">🗳️ Vote</button><div class="chart" id="chart"></div></section>
+
+<section class="card"><h2>✅ Save Your Trip Choices</h2><button class="submit-btn" onclick="submitForm()">🚀 Submit My Choices</button><div id="result"></div></section>
+</div>
+
+<div class="chatbot"><div class="chat-header">🤖 Dreamland Trip Assistant</div><div class="chat-messages" id="chatMessages"><div class="message bot">Hi! 👋 Ask me about seats, snacks, activities, games, or the trip.</div></div>
+<div class="chat-input"><input type="text" id="chatInput" placeholder="Ask me something..." onkeydown="if(event.key==='Enter')sendMessage()"><button onclick="sendMessage()">Send</button></div></div>
+
+<script>
+let selectedSeat=null, selectedPollOption="";
+const regularSeats=document.getElementById("regularSeats"),backSeats=document.getElementById("backSeats");
+
+function createSeat(number,container){
+ const seat=document.createElement("div");seat.className="seat";seat.innerText=number;
+ seat.onclick=function(){document.querySelectorAll(".seat").forEach(s=>s.classList.remove("selected"));seat.classList.add("selected");selectedSeat=number;document.getElementById("selectedSeatText").innerText="🚌 Your selected seat: "+number};
+ container.appendChild(seat);
+}
+for(let row=0;row<6;row++){
+ const r=document.createElement("div");r.className="bus-row";
+ createSeat(row*5+1,r);createSeat(row*5+2,r);
+ const aisle=document.createElement("div");aisle.className="aisle";r.appendChild(aisle);
+ createSeat(row*5+3,r);createSeat(row*5+4,r);createSeat(row*5+5,r);regularSeats.appendChild(r);
+}
+for(let i=31;i<=36;i++)createSeat(i,backSeats);
+
+const votes={"Water Activities":0,"Rope Course / Zipline":0,"Sports":0,"Games":0,"Rides":0,"Magic Show":0,"Pottery":0,"Puppet Show":0};
+const pollOptions=document.getElementById("pollOptions");
+Object.keys(votes).forEach(o=>{pollOptions.innerHTML+=`<div class="poll-option"><input type="radio" name="poll" value="${o}"><label>${o}</label></div>`});
+
+function vote(){
+ const selected=document.querySelector('input[name="poll"]:checked'),custom=document.getElementById("customIdea").value.trim();
+ if(!selected&&!custom){alert("Please choose an option or write your own idea.");return}
+ if(custom){if(!votes[custom])votes[custom]=0;votes[custom]++;selectedPollOption=custom}
+ else{votes[selected.value]++;selectedPollOption=selected.value}
+ drawChart();document.getElementById("customIdea").value="";document.querySelectorAll('input[name="poll"]').forEach(r=>r.checked=false);alert("🎉 Your vote has been counted!");
+}
+function drawChart(){
+ const chart=document.getElementById("chart");chart.innerHTML="<h3>📊 Group Opinion</h3>";
+ const max=Math.max(...Object.values(votes),1);
+ Object.keys(votes).forEach(o=>{let p=votes[o]/max*100;chart.innerHTML+=`<div class="bar-row"><div class="bar-label">${o} — ${votes[o]} vote(s)</div><div class="bar-bg"><div class="bar" style="width:${p}%">${votes[o]}</div></div></div>`});
+}
+drawChart();
+
+function submitForm(){
+ const name=document.getElementById("studentName").value.trim(),cls=document.getElementById("className").value;
+ if(!name){alert("Please enter your name.");return} if(!selectedSeat){alert("Please choose a bus seat.");return}
+ const snacks=Array.from(document.querySelectorAll(".snack:checked")).map(x=>x.value);
+ const activities=Array.from(document.querySelectorAll(".activityCheck:checked")).map(x=>x.value);
+ const result=document.getElementById("result");result.style.display="block";
+ result.innerHTML=`<h3>🎉 Trip Choices Saved!</h3><p><strong>Name:</strong> ${name}</p><p><strong>Class:</strong> ${cls}</p><p><strong>Bus Seat:</strong> ${selectedSeat}</p><p><strong>Snacks:</strong> ${snacks.length?snacks.join(", "):"None selected"}</p><p><strong>Activities:</strong> ${activities.length?activities.join(", "):"None selected"}</p><p><strong>Group Opinion:</strong> ${selectedPollOption||"Not selected"}</p><p>🌿 Have an amazing Dreamland Trip 2026!</p>`;
+ result.scrollIntoView({behavior:"smooth"});
+}
+
+function addMessage(text,type){const m=document.getElementById("chatMessages"),d=document.createElement("div");d.className="message "+type;d.innerText=text;m.appendChild(d);m.scrollTop=m.scrollHeight}
+function sendMessage(){
+ const input=document.getElementById("chatInput"),q=input.value.trim();if(!q)return;addMessage(q,"user");input.value="";
+ setTimeout(()=>{const x=q.toLowerCase();let a="😊 I can help with bus seats, snacks, activities, voting and the Dreamland trip.";
+ if(x.includes("seat")||x.includes("bus"))a="🚌 There are 36 seats: 1–30 in six rows and 31–36 together in the back row.";
+ else if(x.includes("snack")||x.includes("food"))a="🍿 You can choose Chips, Kurkure, Cold Drink, Water, Chocolate, Biscuits, Popcorn, Candy, Samosa, Sandwich, Cupcake, Cookies, Juice, Fruit, Muffin and Namkeen.";
+ else if(x.includes("activity"))a="🎯 Activities include Rope Course, Zipline, Sky Cycling, Climbing, Swimming Pool, Rain Dance, Archery, Dart, Ring Toss, Cricket, Badminton, Volleyball, Air Hockey, Pool, Table Tennis, Rides, Magic Show, Pottery and Puppet Show.";
+ else if(x.includes("vote")||x.includes("poll"))a="🗳️ Choose an option in the group poll and press Vote. The chart will update.";
+ else if(x.includes("class"))a="🏫 The planner has Class 8 F and Another Class, with space for about 25 students per class.";
+ addMessage(a,"bot")},400);
+}
+</script>
+</body>
+</html>
+const APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbw_V10i580yO79mF3qPGr_xL_0odhnWwuUcpLkS8lV6qMsmHu4r20C_7dm34txzgyM/exec";
+
